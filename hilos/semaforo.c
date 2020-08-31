@@ -1,14 +1,14 @@
-#include <semaphore.h>
-#include <unistd.h>
-#include <pthread.h>
 #include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+// #include <unistd.h>
 
-sem_t mutex;
+sem_t sem;
 
 void* thread(void* arg)
 {
     //wait
-    sem_wait(&mutex);
+    sem_wait(&sem);
     printf("\nEntre a comer\n");
 
     //critical section
@@ -16,13 +16,13 @@ void* thread(void* arg)
 
     //signal
     printf("\nSali de comer\n");
-    sem_post(&mutex);
+    sem_post(&sem);
 }
 
 
 int main()
 {
-    sem_init(&mutex, 0, 1);
+    sem_init(&sem, 0, 1);
     pthread_t t1,t2,t3,t4;
     pthread_create(&t1,NULL,thread,NULL);
     sleep(2);
@@ -35,6 +35,6 @@ int main()
     pthread_join(t2,NULL);
     pthread_join(t3,NULL);
     pthread_join(t4,NULL);
-    sem_destroy(&mutex);
+    sem_destroy(&sem);
     return 0;
 }
