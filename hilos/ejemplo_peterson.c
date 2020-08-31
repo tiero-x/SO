@@ -25,7 +25,7 @@ int main(int argc,char *argv[])
       fprintf(stderr,"Argument %d must be non-negative\n",atoi(argv[1]));
       return -1;
     }
-    dato=ato(argv[1]);
+    dato=atoi(argv[1]);
     pthread_attr_init(&attr);
     pthread_create(&tid1,&attr,resta,NULL);
     pthread_create(&tid2,&attr,suma,NULL);
@@ -42,7 +42,7 @@ void *resta()
   int temp=dato;
   for(int i=0;i<=1000000000;i++)
   {
-    t++
+    t++;
   }
   temp-=t/10000000;
   dato=temp;
@@ -61,7 +61,7 @@ void *suma()
   int temp=dato;
   for(int i=0;i<=500000;i++)
   {
-    t++
+    t++;
   }
   temp-=t/10000;
   dato=temp;
