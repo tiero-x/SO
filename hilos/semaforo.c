@@ -1,5 +1,7 @@
 #include <semaphore.h>
 #include <unistd.h>
+#include <pthread.h>
+#include <stdio.h>
 
 sem_t mutex;
 
@@ -29,4 +31,4 @@ int main()
     pthread_join(t2,NULL);
     sem_destroy(&mutex);
     return 0;
-} 
+}
