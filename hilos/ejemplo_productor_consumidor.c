@@ -16,12 +16,14 @@ int main()
 {
   pthread_t tid1,tid2;
   pthread_attr_t attr;
+
   sem_init(&vacio,0,4);
   sem_init(&mutex,0,4);
-  sem_init(&lleno,0,1);
+  sem_init(&lleno,0,0);
+
   pthread_attr_init(&attr);
-  pthread_create(&tid1,&attr,produce,NULL);
-  pthread_create(&tid2,&attr,consume,NULL);
+  pthread_create(&tid1,&attr,consume,NULL);
+  pthread_create(&tid2,&attr,productor,NULL);
 }
 
 /**
