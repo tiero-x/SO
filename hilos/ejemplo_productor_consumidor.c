@@ -7,7 +7,7 @@
 sem_t mutex;
 sem_t lleno;
 sem_t vacio;
-int datos[4];
+int datos[];
 
 void* produce();
 void* consume();
