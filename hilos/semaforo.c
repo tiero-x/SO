@@ -8,15 +8,17 @@ sem_t sem;
 void* thread(void* arg)
 {
     //wait
+    sem_wait(empty);
     sem_wait(&sem);
     printf("\nEntre a comer\n");
 
     //critical section
     sleep(4);
-    
+
     //signal
     printf("\nSali de comer\n");
     sem_post(&sem);
+    sem_post(full);
 }
 
 
