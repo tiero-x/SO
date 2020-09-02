@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <unistd.h>
 
 sem_t mutex;
 sem_t lleno;
 sem_t vacio;
+int datos[4];
 
 void* produce();
 void* consume();
@@ -15,7 +17,7 @@ int main()
   pthread_t tid1,tid2;
   pthread_attr_t attr;
 
-    sem_init(&sem,0,1);
+    sem_init(&mutex,0,1);
     pthread_attr_init(&attr);
     pthread_create(&tid1,&attr,produce,NULL);
     pthread_create(&tid2,&attr,consume,NULL);
