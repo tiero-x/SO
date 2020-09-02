@@ -7,18 +7,20 @@
 sem_t mutex;
 sem_t lleno;
 sem_t vacio;
-int datos[5];
+int datos[4];
 
 void* produce();
 void* consume();
 
-int main(int argc,char *argv[])
+int main()
 {
   pthread_t tid1,tid2;
   pthread_attr_t attr;
-  sem_init(&mutex,0,1);
+  sem_init(&vacio,0,4);
+  sem_init(&lleno,0,1);
   pthread_attr_init(&attr);
   pthread_create(&tid1,&attr,produce,NULL);
+  sleep(2);
   pthread_create(&tid2,&attr,consume,NULL);
 }
 
