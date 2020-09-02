@@ -7,22 +7,19 @@
 sem_t mutex;
 sem_t lleno;
 sem_t vacio;
-int datos[];
+int datos[5];
 
 void* produce();
 void* consume();
 
-int main()
+int main(int argc,char *argv[])
 {
   pthread_t tid1,tid2;
   pthread_attr_t attr;
-
-    sem_init(&mutex,0,1);
-    pthread_attr_init(&attr);
-    pthread_create(&tid1,&attr,produce,NULL);
-    pthread_create(&tid2,&attr,consume,NULL);
-    pthread_join(tid1,NULL);
-    pthread_join(tid2,NULL);
+  sem_init(&mutex,0,1);
+  pthread_attr_init(&attr);
+  pthread_create(&tid1,&attr,produce,NULL);
+  pthread_create(&tid2,&attr,consume,NULL);
 }
 
 /**
@@ -43,7 +40,6 @@ void* produce()
     sem_post(&lleno);
     i++;
     } while(i<20);
-
   pthread_exit(0);
 }
 
