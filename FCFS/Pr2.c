@@ -112,7 +112,7 @@ int tiempo()
     printf("%d", proc[i].tiempo_espera);
     printf("%d", proc[i].tat);
   }
-  proc[i].pid = i;
+  int i;
   int s=(float)total_wt/(float)proc[i].pid;
   int t=(float)total_tat/(float)proc[i].pid;
   printf("Tiempo de espera = %d\n",s);
