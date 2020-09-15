@@ -18,7 +18,7 @@ typedef struct proceso procesos;
 
 procesos proc[20];
 void generador_procesos(int ale);
-void imprimir_procesos(int ale);
+void imprimir_procesos(int ale, PR p[]);
 int generar_aleatorio();
 void tabla(PR p[]);
 void grafico(PR p[]);
@@ -28,7 +28,7 @@ int main(void){
   int aleatorio = 0;
   aleatorio = generar_aleatorio ();
   generador_procesos (aleatorio);
-  imprimir_procesos (aleatorio);
+  imprimir_procesos (aleatorio, p);
 }
 
 void generador_procesos(int ale){
@@ -59,7 +59,7 @@ void generador_procesos(int ale){
   }
 }
 
-void imprimir_procesos(int ale){
+void imprimir_procesos(int ale, PR p[]){
   int suma_espera=0, suma_vuelta;
   for(int i=0;i<20;i++){
     printf("\n PROCESO # %d\n",i+1);
