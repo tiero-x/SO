@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#define MAX 100
 
 struct proceso{
 
@@ -19,14 +20,16 @@ procesos proc[20];
 void generador_procesos(int ale);
 void imprimir_procesos(int ale);
 int generar_aleatorio();
+void tabla(proceso p[]);
+void grafico(proceso p[]);
 
 int main(void){
+  proceso p[MAX];
   int aleatorio = 0;
   aleatorio = generar_aleatorio ();
   generador_procesos (aleatorio);
   imprimir_procesos (aleatorio);
 }
-
 
 void generador_procesos(int ale){
   int temp=0;
@@ -76,20 +79,74 @@ void imprimir_procesos(int ale){
 
   proc[0].tiempo_vuelta = proc[0].rafagas_CPU[0];
 
-  for(int i=1;i<20;i++)
-  {
+  for(int i=1;i<20;i++){
     proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[i-1];
     proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[i];
   }
 
-  for(int i=0;i<20;i++)
-  {
+  for(int i=0;i<20;i++){
     suma_espera += proc[i].tiempo_espera;
     suma_vuelta += proc[i].tiempo_vuelta;
   }
 
+  puts("");
+  tabla(p);
+  puts("");
   printf("Tiempo de espera: %-2d\n", suma_espera);
   printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
+
+  puts("");
+  puts("           GRAFICO        ");
+  puts("         ***********      ");
+  grafico(p);
+}
+
+void tabla(proceso p[])
+{
+  puts("+-----+------------+--------------+-----------------+");
+  puts("| PID | Burst Time | Waiting Time | Turnaround Time |");
+  puts("+-----+------------+--------------+-----------------+");
+
+  for(int i=0;i<20;i++) {
+        printf("| %2d  |     %2d     |      %2d      |        %2d       |\n"
+               , proc[i].pid, proc[i].rafagas_CPU, p[i].tiempo_espera, p[i].tiempo_vuelta);
+        puts("+-----+------------+--------------+-----------------+");
+}
+
+void grafico(proceso p[])
+{
+  int i,j;
+  printf("  ");
+  for(i=0;i<20;i++){
+    for(j=0;j<proc[i].rafagas_CPU[i]-1;j++){
+      printf("  ");
+      printf("P%d", p[i].pid);
+    }
+    for(int j=0;j<proc[i].rafagas_CPU[i]-1;j++){
+      printf("  ");
+      printf("|");
+    }
+  }
+  printf("\n");
+  for(i=0;i<20;i++){
+    for(j=0;j<proc[i].rafagas_CPU[i];i++){
+      printf("--");
+      printf("  ");
+    }
+    printf("\n");
+  }
+
+  printf("0");
+  for(i=0;i<20;i++){
+    for(j=0;j<proc[i].rafagas_CPU[i];j++){
+      printf("  ");
+    }
+    if(proc[i].tiempo_vuelta > 9){
+      printf("\b");
+    }
+    printf("%d", proc[i].tiempo_vuelta);
+  }
+  printf("\n");
 }
 
 int generar_aleatorio()
