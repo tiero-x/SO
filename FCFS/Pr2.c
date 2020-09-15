@@ -94,7 +94,6 @@ for(i=0; i<20; i++) {
 
 // print table
 puts(""); // Empty line
-print_table(p, n);
 puts(""); // Empty Line
 printf("Total Waiting Time      : %-2d\n", sum_waiting_time);
 printf("Average Waiting Time    : %-2.2lf\n", (double)sum_waiting_time / (double) n);
@@ -105,7 +104,6 @@ printf("Average Turnaround Time : %-2.2lf\n", (double)sum_turnaround_time / (dou
 puts(""); // Empty line
 puts("          GANTT CHART          ");
 puts("          ***********          ");
-print_gantt_chart(p, 20);
 return 0;
   }
 }
