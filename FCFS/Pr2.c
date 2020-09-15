@@ -72,24 +72,25 @@ void imprimir_procesos(int ale){
     printf("LLEGADA: %d\n",proc[i].tiempo_llegada);
     printf("\n");
     proc[i].tiempo_espera = proc[i].tiempo_vuelta = 0;
+  }
+
+  proc[0].tiempo_vuelta = proc[0].rafagas_CPU;
+
+  for(int i=1;i<20;i++)
+  {
+    proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[];
+    proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[];
+  }
+
+  for(int i=0;i<20;i++)
+  {
+    suma_espera += proc[i].tiempo_espera;
+    suma_vuelta += proc[i].tiempo_vuelta;
+  }
+
+  printf("Tiempo de espera: %-2d\n", suma_espera);
+  printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
 }
-
-proc[0].tiempo_vuelta = proc[0].rafagas_CPU;
-
-for(int i=1;i<20;i++)
-{
-  proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[];
-  proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[];
-}
-
-for(int i=0;i<20;i++)
-{
-  suma_espera += proc[i].tiempo_espera;
-  suma_vuelta += proc[i].tiempo_vuelta;
-}
-
-printf("Tiempo de espera: %-2d\n", suma_espera);
-printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
 
 int generar_aleatorio()
 {
