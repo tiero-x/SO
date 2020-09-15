@@ -119,6 +119,7 @@ void tabla(procesos proc[])
         printf("| %2d  |     %2d     |      %2d      |        %2d       |\n"
                , proc[i].pid, proc[i].rafagas_CPU, proc[i].tiempo_espera, proc[i].tiempo_vuelta);
         puts("+-----+------------+--------------+-----------------+");
+      }
 }
 
 void grafico(procesos proc[])
