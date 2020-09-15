@@ -74,7 +74,7 @@ void imprimir_procesos(int ale){
     proc[i].tiempo_espera = proc[i].tiempo_vuelta = 0;
   }
 
-  proc[0].tiempo_vuelta = proc[0].rafagas_CPU;
+  proc[0].tiempo_vuelta = proc[0].rafagas_CPU[0];
 
   for(int i=1;i<20;i++)
   {
