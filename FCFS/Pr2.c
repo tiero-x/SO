@@ -107,12 +107,12 @@ int tiempo()
   {
     total_wt = total_wt + proc[i].tiempo_espera;
     total_tat= total_tat + proc[i].tat;
-    printf("%d", (x+1));
+    printf("%d", (i+1));
     printf("%d", proc[i].rafagas_CPU[i]);
     printf("%d", proc[i].tiempo_espera);
     printf("%d", proc[i].tat);
   }
-
+  proc[i].pid = i;
   int s=(float)total_wt/(float)proc[i].pid;
   int t=(float)total_tat/(float)proc[i].pid;
   printf("Tiempo de espera = %d\n",s);
