@@ -20,11 +20,11 @@ procesos proc[20];
 void generador_procesos(int ale);
 void imprimir_procesos(int ale);
 int generar_aleatorio();
-void tabla(proceso p[]);
-void grafico(proceso p[]);
+void tabla(PR p[]);
+void grafico(PR p[]);
 
 int main(void){
-  proceso p[MAX];
+  PR p[MAX];
   int aleatorio = 0;
   aleatorio = generar_aleatorio ();
   generador_procesos (aleatorio);
@@ -101,7 +101,7 @@ void imprimir_procesos(int ale){
   grafico(p);
 }
 
-void tabla(proceso p[])
+void tabla(PR p[])
 {
   puts("+-----+------------+--------------+-----------------+");
   puts("| PID | Burst Time | Waiting Time | Turnaround Time |");
@@ -113,7 +113,7 @@ void tabla(proceso p[])
         puts("+-----+------------+--------------+-----------------+");
 }
 
-void grafico(proceso p[])
+void grafico(PR p[])
 {
   int i,j;
   printf("  ");
