@@ -78,8 +78,8 @@ void imprimir_procesos(int ale){
 
   for(int i=1;i<20;i++)
   {
-    proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU;
-    proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU;
+    proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[i-1];
+    proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[i];
   }
 
   for(int i=0;i<20;i++)
