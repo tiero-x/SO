@@ -9,25 +9,22 @@ struct proceso{
   int rafagas_CPU[11];
   int rafagas_ES[10];
   int tiempo_llegada;
-  int waiting_time;
-  int turnaround_time;
-  int tat;
+  int tiempo_espera;
+  int tiempo_vuelta;
 };
 
 typedef struct proceso procesos;
 
 procesos proc[20];
-void generador_procesos( int ale);
+void generador_procesos(int ale);
 void imprimir_procesos(int ale);
 int generar_aleatorio();
-int tiempo();
 
 int main(void){
-  int aleatorio =0;
+  int aleatorio = 0;
   aleatorio = generar_aleatorio ();
   generador_procesos (aleatorio);
   imprimir_procesos (aleatorio);
-  tiempo();
 }
 
 
@@ -60,7 +57,7 @@ void generador_procesos(int ale){
 }
 
 void imprimir_procesos(int ale){
-  int sum_waiting_time = 0, sum_turnaround_time;
+  int suma_espera=0, suma_vuelta;
   for(int i=0;i<20;i++){
     printf("\n PROCESO # %d\n",i+1);
     printf("PID: %d\n",proc[i].pid);
@@ -74,39 +71,25 @@ void imprimir_procesos(int ale){
     printf("\n");
     printf("LLEGADA: %d\n",proc[i].tiempo_llegada);
     printf("\n");
-
-    proc[i].waiting_time = proc[i].turnaround_time = 0;
+    proc[i].tiempo_espera = proc[i].tiempo_vuelta = 0;
 }
 
-// calculate waiting time and turnaround time
-proc[0].turnaround_time = proc[0].burst_time;
+proc[0].tiempo_vuelta = proc[0].rafagas_CPU;
 
-for(i=1; i<20; i++) {
-    proc[i].waiting_time = proc[i-1].waiting_time + proc[i-1].burst_time;
-    proc[i].turnaround_time = proc[i].waiting_time + proc[i].burst_time;
+for(int i=1;i<20;i++)
+{
+  proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[];
+  proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[];
 }
 
-// calculate sum of waiting time and sum of turnaround time
-for(i=0; i<20; i++) {
-        sum_waiting_time += proc[i].waiting_time;
-        sum_turnaround_time += proc[i].turnaround_time;
+for(int i=0;i<20;i++)
+{
+  suma_espera += proc[i].tiempo_espera;
+  suma_vuelta += proc[i].tiempo_vuelta;
 }
 
-// print table
-puts(""); // Empty line
-puts(""); // Empty Line
-printf("Total Waiting Time      : %-2d\n", sum_waiting_time);
-printf("Average Waiting Time    : %-2.2lf\n", (double)sum_waiting_time / (double) n);
-printf("Total Turnaround Time   : %-2d\n", sum_turnaround_time);
-printf("Average Turnaround Time : %-2.2lf\n", (double)sum_turnaround_time / (double) n);
-
-// print Gantt chart
-puts(""); // Empty line
-puts("          GANTT CHART          ");
-puts("          ***********          ");
-return 0;
-  }
-}
+printf("Tiempo de espera: %-2d\n", suma_espera);
+printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
 
 int generar_aleatorio()
 {
