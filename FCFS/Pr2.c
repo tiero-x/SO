@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX 100
 
 struct proceso{
 
@@ -18,17 +17,16 @@ typedef struct proceso procesos;
 
 procesos proc[20];
 void generador_procesos(int ale);
-void imprimir_procesos(int ale, PR p[]);
+void imprimir_procesos(int ale, procesos proc[]);
 int generar_aleatorio();
-void tabla(PR p[]);
-void grafico(PR p[]);
+void tabla(procesos proc[]);
+void grafico(procesos proc[]);
 
 int main(void){
-  PR p[MAX];
   int aleatorio = 0;
   aleatorio = generar_aleatorio ();
   generador_procesos (aleatorio);
-  imprimir_procesos (aleatorio, p);
+  imprimir_procesos (aleatorio, proc);
 }
 
 void generador_procesos(int ale){
@@ -59,7 +57,7 @@ void generador_procesos(int ale){
   }
 }
 
-void imprimir_procesos(int ale, PR p[]){
+void imprimir_procesos(int ale, procesos proc[]){
   int suma_espera=0, suma_vuelta;
   for(int i=0;i<20;i++){
     printf("\n PROCESO # %d\n",i+1);
@@ -90,7 +88,7 @@ void imprimir_procesos(int ale, PR p[]){
   }
 
   puts("");
-  tabla(p);
+  tabla(proc);
   puts("");
   printf("Tiempo de espera: %-2d\n", suma_espera);
   printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
@@ -98,10 +96,20 @@ void imprimir_procesos(int ale, PR p[]){
   puts("");
   puts("           GRAFICO        ");
   puts("         ***********      ");
-  grafico(p);
+  grafico(proc);
 }
 
-void tabla(PR p[])
+int generar_aleatorio()
+{
+  srand(time(NULL));
+  int aleatorio =0;
+  while(aleatorio<5){
+    aleatorio=rand()%10;
+  }
+  return aleatorio;
+}
+
+void tabla(procesos proc[])
 {
   puts("+-----+------------+--------------+-----------------+");
   puts("| PID | Burst Time | Waiting Time | Turnaround Time |");
@@ -109,18 +117,18 @@ void tabla(PR p[])
 
   for(int i=0;i<20;i++) {
         printf("| %2d  |     %2d     |      %2d      |        %2d       |\n"
-               , proc[i].pid, proc[i].rafagas_CPU, p[i].tiempo_espera, p[i].tiempo_vuelta);
+               , proc[i].pid, proc[i].rafagas_CPU, proc[i].tiempo_espera, proc[i].tiempo_vuelta);
         puts("+-----+------------+--------------+-----------------+");
 }
 
-void grafico(PR p[])
+void grafico(procesos proc[])
 {
   int i,j;
   printf("  ");
   for(i=0;i<20;i++){
     for(j=0;j<proc[i].rafagas_CPU[i]-1;j++){
       printf("  ");
-      printf("P%d", p[i].pid);
+      printf("P%d", proc[i].pid);
     }
     for(int j=0;j<proc[i].rafagas_CPU[i]-1;j++){
       printf("  ");
@@ -147,14 +155,4 @@ void grafico(PR p[])
     printf("%d", proc[i].tiempo_vuelta);
   }
   printf("\n");
-}
-
-int generar_aleatorio()
-{
-  srand(time(NULL));
-  int aleatorio =0;
-  while(aleatorio<5){
-    aleatorio=rand()%10;
-  }
-  return aleatorio;
 }
