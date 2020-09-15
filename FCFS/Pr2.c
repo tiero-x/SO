@@ -9,9 +9,9 @@ struct proceso{
   int rafagas_CPU[11];
   int rafagas_ES[10];
   int tiempo_llegada;
-  int tiempo_espera[100];
-  int tiempo_vuelta[100];
-  int tat[100];
+  int tiempo_espera;
+  int tiempo_vuelta;
+  int tat;
 };
 
 typedef struct proceso procesos;
@@ -88,28 +88,29 @@ int generar_aleatorio()
 
 int tiempo()
 {
-  int i;
   int total_wt=0, total_tat=0;
-    proc[i].tiempo_espera[0] = 0;
-    for(int j=1;j<proc[i].pid;j++)
+
+    proc[0].tiempo_espera = 0;
+
+    for(int i=1;i<proc[i].pid;i++)
     {
-      proc[i].tiempo_espera[j]=proc[i].rafagas_CPU[j-1];
+      proc[i].tiempo_espera = proc[i-1].rafagas_CPU[i] + proc[i-1]).tiempo_espera;
     }
 
-    for (int k=0;k<proc[i].pid;k++)
+    for (int i=0;i<proc[i].pid;i++)
     {
-      proc[i].tat[k]=proc[i].tiempo_espera[k]+proc[i].rafagas_CPU[k];
+      proc[i].tat=proc[i].tiempo_espera + proc[i].rafagas_CPU[i];
     }
 
   printf("Procesos  Rafaga  Tiempo de espera  Tiempo de llegada\n");
-  for(int x=0;x<proc[i].pid;x++)
+  for(int i=0;i<proc[i].pid;i++)
   {
-    total_wt = total_wt + proc[i].tiempo_espera[x];
-    total_tat= total_tat + proc[i].tat[x];
+    total_wt = total_wt + proc[i].tiempo_espera;
+    total_tat= total_tat + proc[i].tat;
     printf("%d", (x+1));
-    printf("%d", proc[i].rafagas_CPU[x]);
-    printf("%d", proc[i].tiempo_espera[x]);
-    printf("%d", proc[i].tat[x]);
+    printf("%d", proc[i].rafagas_CPU[i]);
+    printf("%d", proc[i].tiempo_espera);
+    printf("%d", proc[i].tat);
   }
 
   int s=(float)total_wt/(float)proc[i].pid;
