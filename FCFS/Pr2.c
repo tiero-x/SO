@@ -111,9 +111,9 @@ int generar_aleatorio()
 
 void tabla(procesos proc[])
 {
-  puts("+-----+------------+--------------+-----------------+");
-  puts("| PID | Burst Time | Waiting Time | Turnaround Time |");
-  puts("+-----+------------+--------------+-----------------+");
+  puts("+-----+------------+------------------+------------------+");
+  puts("| PID | Rafaga CPU | Tiempo de espera | Tiempo de vuelta |");
+  puts("+-----+------------+------------------+------------------+");
 
   for(int i=0;i<20;i++) {
         printf("| %2d  |     %2d     |      %2d      |        %2d       |\n"
