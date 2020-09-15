@@ -94,7 +94,7 @@ int tiempo()
 
     for(int i=1;i<proc[i].pid;i++)
     {
-      proc[i].tiempo_espera = proc[i-1].rafagas_CPU[i] + proc[i-1]).tiempo_espera;
+      proc[i].tiempo_espera = proc[i-1].rafagas_CPU[i] + proc[i-1].tiempo_espera;
     }
 
     for (int i=0;i<proc[i].pid;i++)
