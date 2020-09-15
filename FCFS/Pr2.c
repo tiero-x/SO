@@ -88,9 +88,8 @@ int generar_aleatorio()
 
 int tiempo()
 {
+  int i;
   int total_wt=0, total_tat=0;
-  for(int i=0; i<20;i++)
-  {
     proc[i].tiempo_espera[0] = 0;
     for(int j=1;j<proc[i].pid;j++)
     {
@@ -101,7 +100,6 @@ int tiempo()
     {
       proc[i].tat[k]=proc[i].tiempo_espera[k]+proc[i].rafagas_CPU[k];
     }
-  }
 
   printf("Procesos  Rafaga  Tiempo de espera  Tiempo de llegada\n");
   for(int x=0;x<proc[i].pid;x++)
