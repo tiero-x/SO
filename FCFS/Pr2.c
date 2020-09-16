@@ -11,6 +11,7 @@ struct proceso{
   int tiempo_llegada;
   int tiempo_espera;
   int tiempo_vuelta;
+  int tiempo_completado;
 };
 
 typedef struct proceso procesos;
@@ -78,8 +79,9 @@ void imprimir_procesos(int ale, procesos proc[]){
   proc[0].tiempo_vuelta = proc[0].rafagas_CPU[0];
 
   for(int i=1;i<20;i++){
-    proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].rafagas_CPU[i-1];
-    proc[i].tiempo_vuelta = proc[i].tiempo_espera + proc[i].rafagas_CPU[i];
+    proc[i].tiempo_espera = proc[i-1].tiempo_espera + proc[i-1].tiempo_llegada;
+    proc[i].tiempo_completado = proc[i].tiempo_espera + proc[i].rafagas_CPU[i];
+    proc[i].tiempo_vuelta = proc[i].tiempo_completado - proc[i].tiempo_llegada;
   }
 
   for(int i=0;i<20;i++){
@@ -87,15 +89,11 @@ void imprimir_procesos(int ale, procesos proc[]){
     suma_vuelta += proc[i].tiempo_vuelta;
   }
 
-  puts("");
   tabla(proc);
-  puts("");
-  printf("Tiempo de espera: %-2d\n", suma_espera);
-  printf("Tiempo de vuelta: %-2d\n", suma_vuelta);
-
-  puts("");
-  puts("           GRAFICO        ");
-  puts("         ***********      ");
+  printf("\n");
+  printf("Tiempo de espera: %-2d\n", suma_espera/20);
+  printf("Tiempo de vuelta: %-2d\n", suma_vuelta/20);
+  printf("\n");
   grafico(proc);
 }
 
@@ -111,14 +109,11 @@ int generar_aleatorio()
 
 void tabla(procesos proc[])
 {
-  puts("+-----+------------+------------------+------------------+");
-  puts("| PID | Rafaga CPU | Tiempo de espera | Tiempo de vuelta |");
-  puts("+-----+------------+------------------+------------------+");
+  puts("|PID\t|\tRafaga CPU\t|\tRafaga E/S\t|Tiempo llegada\t|\tTiempo de espera\t|\tTiempo de vuelta\t|\n");
 
   for(int i=0;i<20;i++) {
-        printf("| %2d  |     %2d     |      %2d      |        %2d       |\n"
-               , proc[i].pid, proc[i].rafagas_CPU, proc[i].tiempo_espera, proc[i].tiempo_vuelta);
-        puts("+-----+------------+--------------+-----------------+");
+        printf("|%2d\t|\t%2d\t|\t%2d\t\t|\t%2d\t|\t\t%2d\t\t|\t\t%2d\t\t|\n", proc[i].pid, proc[i].rafagas_CPU,
+        proc[i].rafagas_ES[i],proc[i].tiempo_llegada, proc[i].tiempo_espera, proc[i].tiempo_vuelta);
       }
 }
 
@@ -127,20 +122,17 @@ void grafico(procesos proc[])
   int i,j;
   printf("  ");
   for(i=0;i<20;i++){
-    for(j=0;j<proc[i].rafagas_CPU[i]-1;j++){
-      printf("  ");
-      printf("P%d", proc[i].pid);
+    for(j=0;j<proc[i].rafagas_CPU[i-1];j++){
+      printf(" P%d ", proc[i].pid);
     }
-    for(int j=0;j<proc[i].rafagas_CPU[i]-1;j++){
-      printf("  ");
-      printf("|");
+    for(int j=0;j<proc[i].rafagas_CPU[i-1];j++){
+      printf(" | ");
     }
   }
   printf("\n");
   for(i=0;i<20;i++){
     for(j=0;j<proc[i].rafagas_CPU[i];i++){
       printf("--");
-      printf("  ");
     }
     printf("\n");
   }
