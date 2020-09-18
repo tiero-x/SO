@@ -111,7 +111,7 @@ void tabla(procesos proc[])
 {
   puts("|PID\t|\tRafaga CPU\t|\tRafaga E/S\t|Tiempo llegada\t|\tTiempo de espera\t|\tTiempo de vuelta\t|\n");
 
-  for(int i=0;i<20;i++) {
+  for(int i=1;i<20;i++) {
         printf("|%2d\t|\t%2d\t|\t%2d\t\t|\t%2d\t|\t\t%2d\t\t|\t\t%2d\t\t|\n", proc[i].pid, proc[i].rafagas_CPU,
         proc[i].rafagas_ES[i],proc[i].tiempo_llegada, proc[i].tiempo_espera, proc[i].tiempo_vuelta);
       }
