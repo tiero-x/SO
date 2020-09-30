@@ -6,7 +6,7 @@ int main()
   DIR *directorio;
   struct dirent *entrada;
   int archivos = 0;
-  
+
   directorio = opendir(".");
   if(directorio == NULL)
     {
